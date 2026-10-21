@@ -1,0 +1,86 @@
+<div *ngIf="!loggedIn">
+  <h2>CampusReads Login</h2>
+
+  <input [(ngModel)]="username" placeholder="Username">
+  <input [(ngModel)]="password" type="password" placeholder="Password">
+
+  <button (click)="login()">Login</button>
+</div>
+
+<div *ngIf="loggedIn">
+
+  <h1>CampusReads Library</h1>
+
+  <p>Total Copies: {{ totalCopies }}</p>
+
+  <h3>{{ editId ? 'Update Book' : 'Add Book' }}</h3>
+
+  <input [(ngModel)]="title" placeholder="Title">
+  <input [(ngModel)]="author" placeholder="Author">
+  <input [(ngModel)]="isbn" placeholder="13-digit ISBN">
+  <input [(ngModel)]="copies" type="number" placeholder="Copies">
+
+  <select [(ngModel)]="status">
+    <option>Available</option>
+    <option>Issued</option>
+  </select>
+
+  <button (click)="saveBook()">
+    {{ editId ? 'Update' : 'Add' }}
+  </button>
+
+  <button *ngIf="editId" (click)="clearForm()">Cancel</button>
+
+  <p style="color:red">{{ error }}</p>
+
+  <hr>
+
+  <h3>Search and Filter</h3>
+
+  <input [(ngModel)]="searchTitle" placeholder="Search by title">
+  <input [(ngModel)]="searchAuthor" placeholder="Search by author">
+
+  <select [(ngModel)]="filterStatus">
+    <option>All</option>
+    <option>Available</option>
+    <option>Issued</option>
+  </select>
+
+  <select [(ngModel)]="sortBy">
+    <option value="title">Sort by Title</option>
+    <option value="author">Sort by Author</option>
+  </select>
+
+  <hr>
+
+  <h3>Book List</h3>
+
+  <div *ngFor="let b of filteredBooks" class="card">
+    <h3>{{ b.title }}</h3>
+
+    <p>Author: {{ b.author }}</p>
+    <p>ISBN: {{ b.isbn }}</p>
+    <p>Copies: {{ b.copies }}</p>
+    <p>Status: {{ b.status }}</p>
+
+    <button (click)="readBook(b._id)">Read</button>
+    <button (click)="editBook(b)">Edit</button>
+    <button (click)="deleteBook(b._id)">Delete</button>
+
+    <button (click)="changeStatus(b)">
+      {{ b.status === 'Available' ? 'Issue' : 'Return' }}
+    </button>
+  </div>
+
+  <div *ngIf="selectedBook" class="card">
+    <h3>Book Details</h3>
+    <p>Title: {{ selectedBook.title }}</p>
+    <p>Author: {{ selectedBook.author }}</p>
+    <p>ISBN: {{ selectedBook.isbn }}</p>
+    <p>Copies: {{ selectedBook.copies }}</p>
+    <p>Status: {{ selectedBook.status }}</p>
+
+    <button (click)="selectedBook = null">Close</button>
+  </div>
+
+</div>
