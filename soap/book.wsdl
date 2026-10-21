@@ -1,0 +1,42 @@
+
+<definitions name="BookService"
+ xmlns="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+ xmlns:tns="http://test.com/book"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ targetNamespace="http://test.com/book">
+
+ <message name="AddReq">
+  <part name="title" type="xsd:string"/>
+ </message>
+ <message name="AddRes">
+  <part name="message" type="xsd:string"/>
+   mkdir soap 
+ </message>
+
+ <portType name="BookPort">
+  <operation name="addBook">
+   <input message="tns:AddReq"/>
+   cd soap
+   <output message="tns:AddRes"/>
+  </operation>
+ </portType>
+
+ <binding name="BookBinding" type="tns:BookPort">
+  <soap:binding style="rpc"
+   transport="http://schemas.xmlsoap.org/soap/http"/>
+   npm init -y
+  <operation name="addBook">
+   <soap:operation soapAction="addBook"/>
+   <input><soap:body use="literal" namespace="http://test.com/book"/></input>
+   npm install soap
+   <output><soap:body use="literal" namespace="http://test.com/book"/></output>
+  </operation>
+ </binding>
+
+ <service name="BookService">
+  <port name="BookPort" binding="tns:BookBinding">
+   <soap:address location="http://localhost:8000/book"/>
+  </port>
+ </service>
+</definitions>

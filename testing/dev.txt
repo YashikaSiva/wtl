@@ -1,0 +1,6 @@
+document.title
+document.querySelector("input")
+document.getElementById("username").value = "admin";
+document.getElementById("password").value = "1234";
+document.getElementById("login").click();
+document.getElementById("username")

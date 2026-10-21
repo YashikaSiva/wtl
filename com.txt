@@ -1,0 +1,13 @@
+npm install -g @angular/cli
+ng version
+ng new my-project
+cd my-project
+npm install
+ng serve
+
+cd book/backend
+node server.js
+
+ng serve
+
+testing type -> run script

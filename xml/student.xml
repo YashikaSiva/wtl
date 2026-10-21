@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="student.xsl"?>
+<?xml-stylesheet type="text/css" href="student.css"?>
+<?xml version="1.0"?>
+
+<students xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="student.xsd">
+<!DOCTYPE students SYSTEM "student.dtd">
+
+<students>
+    <student rollno="101">
+        <name>Yashika</name>
+        <age>20</age>
+        <mark>95</mark>
+    </student>
+
+    <student rollno="102">
+        <name>Ram</name>
+        <age>21</age>
+        <mark>90</mark>
+    </student>
+</students>
