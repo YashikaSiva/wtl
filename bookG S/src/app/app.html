@@ -1,0 +1,86 @@
+<!-- LOGIN -->
+<div *ngIf="!loggedIn">
+  <h2>Login</h2>
+
+  <input [(ngModel)]="username" placeholder="Username">
+  <input [(ngModel)]="password" type="password" placeholder="Password">
+
+  <button (click)="login()">Login</button>
+
+  <p style="color:red">{{ error }}</p>
+</div>
+
+<!-- MAIN APPLICATION -->
+<div *ngIf="loggedIn">
+
+  <h1>Management System</h1>
+
+  <button (click)="loggedIn = false">Logout</button>
+
+  <p>Total Value: {{ totalValue }}</p>
+
+  <h3>{{ editId ? 'Update Item' : 'Add Item' }}</h3>
+
+  <input [(ngModel)]="name" placeholder="Book Name">
+<input [(ngModel)]="detail" placeholder="Author">
+<input [(ngModel)]="category" placeholder="ISBN">
+<input [(ngModel)]="value" type="number" placeholder="Price">
+
+  <select [(ngModel)]="status">
+    <option>Available</option>
+    <option>Issued</option>
+  </select>
+
+  <button (click)="save()">{{ editId ? 'Update' : 'Add' }}</button>
+  <button (click)="clear()">Clear</button>
+
+  <p style="color:red">{{ error }}</p>
+
+  <hr>
+
+  <h3>Search and Filter</h3>
+
+  <input [(ngModel)]="searchName" placeholder="Search by name">
+  <input [(ngModel)]="searchDetail" placeholder="Search by details">
+
+  <select [(ngModel)]="filterStatus">
+    <option>All</option>
+    <option>Available</option>
+    <option>Issued</option>
+  </select>
+
+  <select [(ngModel)]="sortBy">
+    <option value="name">Sort by Name</option>
+    <option value="detail">Sort by Details</option>
+  </select>
+
+  <h3>Item List</h3>
+
+  <div *ngFor="let item of filteredItems" class="card">
+    <h3>{{ item.name }}</h3>
+    <p>Details: {{ item.detail }}</p>
+    <p>Category: {{ item.category }}</p>
+    <p>Value: {{ item.value }}</p>
+    <p>Status: {{ item.status }}</p>
+
+    <button (click)="readOne(item.id)">Read</button>
+    <button (click)="edit(item)">Edit</button>
+    <button (click)="delete(item.id)">Delete</button>
+
+    <button (click)="changeStatus(item)">
+      {{ item.status === 'Available' ? 'Issue' : 'Return' }}
+    </button>
+  </div>
+
+  <div *ngIf="selectedItem" class="card">
+    <h3>Item Details</h3>
+    <p>Name: {{ selectedItem.name }}</p>
+    <p>Details: {{ selectedItem.detail }}</p>
+    <p>Category: {{ selectedItem.category }}</p>
+    <p>Value: {{ selectedItem.value }}</p>
+    <p>Status: {{ selectedItem.status }}</p>
+
+    <button (click)="selectedItem = null">Close</button>
+  </div>
+
+</div>
