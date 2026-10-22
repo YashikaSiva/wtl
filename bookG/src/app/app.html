@@ -1,0 +1,86 @@
+<!-- LOGIN PAGE -->
+<div *ngIf="!loggedIn">
+  <h2>Login</h2>
+
+  <input [(ngModel)]="username" placeholder="Username">
+  <input [(ngModel)]="password" type="password" placeholder="Password">
+
+  <button (click)="login()">Login</button>
+
+  <p style="color:red">{{ error }}</p>
+</div>
+
+<!-- BOOK APPLICATION -->
+<div *ngIf="loggedIn">
+
+  <h1>CampusReads Library</h1>
+
+  <button (click)="loggedIn = false">Logout</button>
+
+  <p>Total Book Value: {{ totalValue }}</p>
+
+  <h3>{{ editId ? 'Update Book' : 'Add Book' }}</h3>
+
+  <input [(ngModel)]="name" placeholder="Book Name">
+  <input [(ngModel)]="detail" placeholder="Author">
+  <input [(ngModel)]="category" placeholder="ISBN">
+  <input [(ngModel)]="value" type="number" placeholder="Price">
+
+  <select [(ngModel)]="status">
+    <option>Available</option>
+    <option>Issued</option>
+  </select>
+
+  <button (click)="save()">{{ editId ? 'Update' : 'Add' }}</button>
+  <button (click)="clear()">Clear</button>
+
+  <p style="color:red">{{ error }}</p>
+
+  <hr>
+
+  <h3>Search and Filter</h3>
+
+  <input [(ngModel)]="searchName" placeholder="Search by book name">
+  <input [(ngModel)]="searchDetail" placeholder="Search by author">
+
+  <select [(ngModel)]="filterStatus">
+    <option>All</option>
+    <option>Available</option>
+    <option>Issued</option>
+  </select>
+
+  <select [(ngModel)]="sortBy">
+    <option value="name">Sort by Name</option>
+    <option value="detail">Sort by Author</option>
+  </select>
+
+  <h3>Book List</h3>
+
+  <div *ngFor="let b of filteredBooks" class="card">
+    <h3>{{ b.name }}</h3>
+    <p>Author: {{ b.detail }}</p>
+    <p>ISBN: {{ b.category }}</p>
+    <p>Price: {{ b.value }}</p>
+    <p>Status: {{ b.status }}</p>
+
+    <button (click)="readOne(b._id)">Read</button>
+    <button (click)="edit(b)">Edit</button>
+    <button (click)="delete(b._id)">Delete</button>
+
+    <button (click)="changeStatus(b)">
+      {{ b.status === 'Available' ? 'Issue' : 'Return' }}
+    </button>
+  </div>
+
+  <div *ngIf="selectedBook" class="card">
+    <h3>Book Details</h3>
+    <p>Name: {{ selectedBook.name }}</p>
+    <p>Author: {{ selectedBook.detail }}</p>
+    <p>ISBN: {{ selectedBook.category }}</p>
+    <p>Price: {{ selectedBook.value }}</p>
+    <p>Status: {{ selectedBook.status }}</p>
+
+    <button (click)="selectedBook = null">Close</button>
+  </div>
+
+</div>
